@@ -1,4 +1,4 @@
-import 'dart:convert'; // Untuk encoding dan decoding JSON
+import 'dart:convert'; 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoapp/utils/todo_list.dart';
@@ -13,23 +13,20 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _controller = TextEditingController();
 
-  // Daftar todo yang akan disimpan
   List<List<dynamic>> toDoList = [];
 
   @override
   void initState() {
     super.initState();
-    loadData(); // Memuat data dari SharedPreferences ketika app dimulai
+    loadData(); 
   }
 
-  // Fungsi untuk menyimpan todo list ke SharedPreferences
   void saveData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String encodedData = jsonEncode(toDoList); // Ubah list menjadi JSON
+    String encodedData = jsonEncode(toDoList); 
     await prefs.setString('todoList', encodedData);
   }
 
-  // Fungsi untuk memuat todo list dari SharedPreferences
   void loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? encodedData = prefs.getString('todoList');
@@ -41,31 +38,28 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // Update checkbox status
   void checkBoxChanged(int index) {
     setState(() {
       toDoList[index][1] = !toDoList[index][1];
     });
-    saveData(); // Simpan data setiap kali ada perubahan
+    saveData(); 
   }
 
-  // Tambah task baru
   void saveNewTask() {
     if (_controller.text.isNotEmpty) {
       setState(() {
         toDoList.add([_controller.text, false]);
         _controller.clear();
       });
-      saveData(); // Simpan data setiap kali task baru ditambahkan
+      saveData(); 
     }
   }
 
-  // Hapus task
   void deleteTask(int index) {
     setState(() {
       toDoList.removeAt(index);
     });
-    saveData(); // Simpan data setelah task dihapus
+    saveData(); 
   }
 
   @override
@@ -108,13 +102,13 @@ class _HomePageState extends State<HomePage> {
                       borderSide: const BorderSide(
                         color: Colors.deepPurple,
                       ),
-                      borderRadius: BorderRadius.circular(10), // Perbaikan di sini
+                      borderRadius: BorderRadius.circular(10), 
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
                         color: Colors.deepPurple,
                       ),
-                      borderRadius: BorderRadius.circular(10), // Perbaikan di sini
+                      borderRadius: BorderRadius.circular(10), 
                     ),
                   ),
                 ),
